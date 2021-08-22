@@ -1,0 +1,10 @@
+version: 3
+services:
+	docker-rabbit-mq:
+		container-name: docker-rabbit-mq
+		image: rabbitmq:3.8-management
+		ports:
+		  - 15675:15675
+		  - 5675:5675
+	docker-postgree
+		container: 
