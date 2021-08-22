@@ -1,10 +1,44 @@
 version: 3
+
 services:
-	docker-rabbit-mq:
-		container-name: docker-rabbit-mq
+#set rabbitMQ
+	docker-rabbitmq:
+		container_name: docker-rabbitmq
+		image: rabbitmq:3.8
+		ports:
+			5675:5672
+			
+# set rabbitMQ management
+	docker-rabbitmq-management:
+		container-name: docker-rabbitmq-management
 		image: rabbitmq:3.8-management
 		ports:
-		  - 15675:15675
-		  - 5675:5675
-	docker-postgree
-		container: 
+		  - 15675:15672
+		  - 5675:5672
+		enviroment:
+			RABBITMQ_DEFAULT_PASS_FILE: sa
+			RABBITMQ_DEFAULT_USER_FILE: sa
+
+# set postgres
+	docker-postgres:
+		container: docker-postgres
+		image: postgres:13.4
+		ports:
+			- 5435:5432
+		values:
+			- /data/db
+		environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: sa
+
+# set mongo
+	docker-mongo:
+		container: docker-mongo
+		image: mongo:4.2
+		ports:
+			- 27015:27017
+		volumes:
+      - /data/db
+		environment:
+			MONGO_INITDB_ROOT_USERNAME: sa
+			MONGO_INITDB_ROOT_PASSWORD: sa
