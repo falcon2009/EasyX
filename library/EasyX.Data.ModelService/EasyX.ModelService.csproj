@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyX.Data.EF\EasyX.Data.EF.csproj" />
+    <ProjectReference Include="..\EasyX.Http\EasyX.Http.csproj" />
+    <ProjectReference Include="..\EasyX.Infra\EasyX.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
