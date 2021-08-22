@@ -35,15 +35,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UAC.Proxy", "app\UAC\UAC.Pr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Organization", "Organization", "{51DFF5F4-4789-4979-99D2-2FA0CD0F93BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organization.Share", "app\Organization\Organization.Share\Organization.Share.csproj", "{E9139D3C-29A4-42D6-BBDF-F3C47FEB0FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.Share", "app\Organization\Organization.Share\Organization.Share.csproj", "{E9139D3C-29A4-42D6-BBDF-F3C47FEB0FFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Person", "Person", "{6F665252-77AF-4D75-8835-CB03C8A7358E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Share", "app\Person\Person.Share\Person.Share.csproj", "{042F02A4-810A-45F2-BF8C-2998E646505A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Share", "app\Person\Person.Share\Person.Share.csproj", "{042F02A4-810A-45F2-BF8C-2998E646505A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Storage", "app\Person\Person.Storage\Person.Storage.csproj", "{F5A6B8E9-4217-4FFC-B1E6-CF4605A55502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Storage", "app\Person\Person.Storage\Person.Storage.csproj", "{F5A6B8E9-4217-4FFC-B1E6-CF4605A55502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Api", "app\Person\Person.Api\Person.Api.csproj", "{EC173C7D-CFD0-44BA-BCAB-DC5BA198F44E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Api", "app\Person\Person.Api\Person.Api.csproj", "{EC173C7D-CFD0-44BA-BCAB-DC5BA198F44E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_enviroment", "_enviroment", "{63D69394-650C-4C85-88E0-E5CD72B06343}"
+	ProjectSection(SolutionItems) = preProject
+		docker.compose.yml = docker.compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
