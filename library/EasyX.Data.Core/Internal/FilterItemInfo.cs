@@ -62,9 +62,8 @@ namespace EasyX.Data.Core.Internal
             {
                 Expression expression = Expression.Property(lambdaExpression, FilterItemName);
                 Expression body = valueProvider.GetBodyExpression(expression, filterType);
-                LambdaExpression result = Expression.Lambda(body, new[] { lambdaExpression as ParameterExpression });
 
-                return result;
+                return Expression.Lambda(body, new[] { lambdaExpression as ParameterExpression });
             }
 
             if (IsEnumerable)
@@ -75,25 +74,26 @@ namespace EasyX.Data.Core.Internal
                                                              .MakeGenericMethod(PropertyOrGenericType);
                 Expression predicate = Next.GetLambdaExpression(valueProvider, filterType, memberExpression);
                 MethodCallExpression body = Expression.Call(anyMethodInfo, memberExpression, predicate);
-                LambdaExpression result = Expression.Lambda(body, new[] { lambdaExpression as ParameterExpression });
 
-                return result;
+                return Expression.Lambda(body, new[] { lambdaExpression as ParameterExpression }); ;
             }
 
             if (Previous?.IsEnumerable ?? false)
             {
-                ParameterExpression childLambdaParam = Expression.Parameter(Previous.PropertyOrGenericType, itemLambdaParameterName);
-                Expression childBody = Expression.Property(childLambdaParam, FilterItemName);
-                Expression resultLambda = Expression.Equal(childBody, Expression.Constant(1));
-                LambdaExpression predicate = Expression.Lambda(resultLambda, new[] { childLambdaParam });
+                ParameterExpression expression = Expression.Parameter(Previous.PropertyOrGenericType, itemLambdaParameterName);
+                if (Next == null)
+                {
+                    Expression body = valueProvider.GetBodyExpression(expression, filterType);
+                    return Expression.Lambda(body, new[] { lambdaExpression as ParameterExpression });
+                }
 
-                return predicate;
+                return Next.GetLambdaExpression(valueProvider, filterType, expression);
             }
             else
             {
-                Expression childBody = Expression.Property(lambdaExpression, FilterItemName);
+                Expression expression = Expression.Property(lambdaExpression, FilterItemName);
 
-                return Next.GetLambdaExpression(valueProvider, filterType, childBody);
+                return Next.GetLambdaExpression(valueProvider, filterType, expression);
             }
         }
     }
