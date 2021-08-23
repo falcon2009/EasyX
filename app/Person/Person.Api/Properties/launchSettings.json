@@ -1,7 +1,13 @@
 {
   "profiles": {
     "Person.Api": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger/index.html",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:5001;http://localhost:5101"
     },
     "Docker": {
       "commandName": "Docker",

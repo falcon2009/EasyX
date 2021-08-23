@@ -2,7 +2,7 @@
 
 namespace Person.Share.Key
 {
-    public class PersonContactKey: IEquatable<PersonContactKey>
+    public sealed class PersonContactKey: IEquatable<PersonContactKey>
     {
         public Guid Id { get; set; }
 

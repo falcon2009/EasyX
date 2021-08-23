@@ -1,11 +1,12 @@
-﻿using Person.Share.Enum;
+﻿using EasyX.Data.Api.Entity;
+using Person.Share.Enum;
 using Person.Share.Key;
 using System;
 using System.Text.Json.Serialization;
 
-namespace Person.Share.Model
+namespace Person.Share.Model.PersonContact
 {
-    public class PersonContactModel
+    public class PersonContactModel : IKey<PersonContactKey>
     {
         public Guid? Id { get; set; }
         public Guid? PersonId { get; set; }

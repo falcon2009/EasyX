@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using EasyX.Data.Api.Entity;
 using Person.Share.Key;
-
+using Person.Share.Model.PersonContact;
 
 namespace Person.Share.Model.Person
 {

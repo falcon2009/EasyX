@@ -2,9 +2,9 @@
 
 namespace Person.Share.Key
 {
-    public class PersonKey : IEquatable<PersonKey>
+    public sealed class PersonKey : IEquatable<PersonKey>
     {
-        public Guid Id;
+        public Guid Id { get; set; }
         public bool Equals(PersonKey other)
         {
             if (other == null)

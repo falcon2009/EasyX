@@ -25,13 +25,13 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\library\EasyX.WebApi\EasyX.WebApi.csproj" />
     <ProjectReference Include="..\Person.Share\Person.Share.csproj" />
     <ProjectReference Include="..\Person.Storage\Person.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
