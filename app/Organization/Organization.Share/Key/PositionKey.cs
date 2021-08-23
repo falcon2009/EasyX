@@ -2,11 +2,10 @@
 
 namespace Organization.Share.Key
 {
-    public sealed class OrganizationKey : IEquatable<OrganizationKey>
+    public sealed class PositionKey : IEquatable<PositionKey>
     {
-        public Guid Id { get; set; }
-
-        public bool Equals(OrganizationKey other)
+        public int Id { get; set; }
+        public bool Equals(PositionKey other)
         {
             if (other == null)
             {
@@ -21,7 +20,7 @@ namespace Organization.Share.Key
         }
         public override bool Equals(object obj)
         {
-            return (obj is OrganizationKey) && Equals(obj as OrganizationKey);
+            return (obj is PositionKey) && Equals(obj as PositionKey);
         }
     }
 }

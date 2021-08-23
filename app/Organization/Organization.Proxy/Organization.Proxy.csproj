@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\library\EasyX.Data.ModelService\EasyX.ModelService.csproj" />
+    <ProjectReference Include="..\..\..\library\EasyX.Http\EasyX.Http.csproj" />
+    <ProjectReference Include="..\Organization.Share\Organization.Share.csproj" />
+  </ItemGroup>
+
+</Project>

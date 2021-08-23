@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
+    <ProjectReference Include="..\..\..\library\EasyX.Data.Api\EasyX.Data.Api.csproj" />
   </ItemGroup>
 
 </Project>
