@@ -43,8 +43,8 @@ namespace UAC.Api
                 config.AddProfile(new UserRoleMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
-
             services.AddSingleton(mapper);
+
             //add db context
             services.AddDbContext<ApiDbContext>(SetDBContext);
             services.AddControllers();
