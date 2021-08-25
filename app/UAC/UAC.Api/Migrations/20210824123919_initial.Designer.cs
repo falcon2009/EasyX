@@ -10,7 +10,7 @@ using UAC.Storage;
 namespace UAC.Api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20210818205658_initial")]
+    [Migration("20210824123919_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,14 +60,8 @@ namespace UAC.Api.Migrations
                     b.Property<DateTimeOffset?>("DeletedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");

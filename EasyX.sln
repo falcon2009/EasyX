@@ -50,13 +50,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_enviroment", "_enviroment"
 		docker.compose.yml = docker.compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organization.Storage", "app\Organization\Organization.Storage\Organization.Storage.csproj", "{D80EAF59-2A3F-4910-90B6-EEFFD5A844DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.Storage", "app\Organization\Organization.Storage\Organization.Storage.csproj", "{D80EAF59-2A3F-4910-90B6-EEFFD5A844DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Proxy", "app\Person\Person.Proxy\Person.Proxy.csproj", "{371F4A48-F698-46C6-8C72-F3D460881E1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Proxy", "app\Person\Person.Proxy\Person.Proxy.csproj", "{371F4A48-F698-46C6-8C72-F3D460881E1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organization.Proxy", "app\Organization\Organization.Proxy\Organization.Proxy.csproj", "{0FCDE3F0-21C7-44E5-92F8-5948570FB829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.Proxy", "app\Organization\Organization.Proxy\Organization.Proxy.csproj", "{0FCDE3F0-21C7-44E5-92F8-5948570FB829}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestrator", "Orchestrator", "{80CE48BC-418B-4316-A349-7C6FA6974CBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organization.Api", "app\Organization\Organization.Api\Organization.Api.csproj", "{F8143131-0456-40EA-A9FA-C65AF91E63DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrgOrchestrator", "OrgOrchestrator", "{8649441F-9E3C-450E-B4C8-D88DCFA64762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrgOrchestrator.Shared", "orchestrator\OrgOrchestrator\OrgOrchestrator.Shared\OrgOrchestrator.Shared.csproj", "{4E4726C7-9631-45F5-9F3E-FDCAE89B94D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,6 +146,14 @@ Global
 		{0FCDE3F0-21C7-44E5-92F8-5948570FB829}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FCDE3F0-21C7-44E5-92F8-5948570FB829}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FCDE3F0-21C7-44E5-92F8-5948570FB829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8143131-0456-40EA-A9FA-C65AF91E63DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8143131-0456-40EA-A9FA-C65AF91E63DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8143131-0456-40EA-A9FA-C65AF91E63DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8143131-0456-40EA-A9FA-C65AF91E63DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E4726C7-9631-45F5-9F3E-FDCAE89B94D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4726C7-9631-45F5-9F3E-FDCAE89B94D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4726C7-9631-45F5-9F3E-FDCAE89B94D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4726C7-9631-45F5-9F3E-FDCAE89B94D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +181,9 @@ Global
 		{D80EAF59-2A3F-4910-90B6-EEFFD5A844DB} = {51DFF5F4-4789-4979-99D2-2FA0CD0F93BC}
 		{371F4A48-F698-46C6-8C72-F3D460881E1A} = {6F665252-77AF-4D75-8835-CB03C8A7358E}
 		{0FCDE3F0-21C7-44E5-92F8-5948570FB829} = {51DFF5F4-4789-4979-99D2-2FA0CD0F93BC}
+		{F8143131-0456-40EA-A9FA-C65AF91E63DF} = {51DFF5F4-4789-4979-99D2-2FA0CD0F93BC}
+		{8649441F-9E3C-450E-B4C8-D88DCFA64762} = {80CE48BC-418B-4316-A349-7C6FA6974CBA}
+		{4E4726C7-9631-45F5-9F3E-FDCAE89B94D2} = {8649441F-9E3C-450E-B4C8-D88DCFA64762}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0E2E3E7-E20A-4DA1-B6CE-E3DC2AEC57F4}

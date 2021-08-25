@@ -9,6 +9,8 @@ namespace Organization.Storage
         public DbSet<Entity.Employee> EmployeeList { get; set; }
         public DbSet<Entity.Position> PositionList { get; set; }
 
+        public ApiDbContext(DbContextOptions options) : base(options)
+        { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureOrganization();

@@ -58,14 +58,8 @@ namespace UAC.Api.Migrations
                     b.Property<DateTimeOffset?>("DeletedOn")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");

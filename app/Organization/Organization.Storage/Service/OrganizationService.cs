@@ -15,6 +15,7 @@ namespace Organization.Storage.Service
         protected override void ConfigureService()
         {
             BindModel<OrganizationModel, Entity.Organization>();
+            BindModel<OrganizationLookupModel, OrganizationLookup>();
             BindModel<OrganizationWithEmployeeModel, OrganizationWithEmployee>();
         }
     }

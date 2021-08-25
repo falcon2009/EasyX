@@ -10,8 +10,8 @@ using Person.Storage;
 namespace Person.Api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20210823132914_initial")]
-    partial class initial
+    [Migration("20210824123839_intial")]
+    partial class intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
