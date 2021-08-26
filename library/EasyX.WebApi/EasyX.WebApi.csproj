@@ -6,16 +6,11 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EasyX.Crud.Api\EasyX.Crud.Api.csproj" />
     <ProjectReference Include="..\EasyX.Data.Api\EasyX.Data.Api.csproj" />
     <ProjectReference Include="..\EasyX.Data.Core\EasyX.Data.Core.csproj" />
-    <ProjectReference Include="..\EasyX.Infra\EasyX.Infra.csproj" />
   </ItemGroup>
 
 </Project>

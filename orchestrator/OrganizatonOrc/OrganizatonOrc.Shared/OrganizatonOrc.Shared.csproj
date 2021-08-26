@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\app\Organization\Organization.Share\Organization.Share.csproj" />
+    <ProjectReference Include="..\..\..\app\Person\Person.Share\Person.Share.csproj" />
+    <ProjectReference Include="..\..\..\library\EasyX.Crud.Api\EasyX.Crud.Api.csproj" />
+  </ItemGroup>
+
+</Project>

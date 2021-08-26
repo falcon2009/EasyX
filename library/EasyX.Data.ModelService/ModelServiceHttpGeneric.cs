@@ -18,20 +18,18 @@ namespace ServiceCore.Services
 {
     public abstract class ModelServiceHttpGeneric<TKey> : IModelService<TKey> where TKey : class
     {
-        private const string GET_ASYNC = "GetAync";
+        private const string GET_ASYNC = "GetAsync";
         private readonly ITypeResolver typeResolver;
         private readonly IHttpService httpService;
         private readonly Type contextType;
         protected HttpClient HttpClient { get; private set; }
-        protected string Controller { get; private set; }
+        protected abstract string Controller { get;}
 
-
-        protected ModelServiceHttpGeneric(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver, string controller)
+        protected ModelServiceHttpGeneric(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver)
         {
             this.typeResolver = typeResolver ?? throw new ArgumentNullException(nameof(httpClient), "TypeResolver cannot be null");
             this.httpService = httpService ?? throw new ArgumentNullException(nameof(httpClient), "HttpService cannot be null");
             HttpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient), "HttpClient cannot be null");
-            Controller = controller;
             this.contextType = httpService.GetType();
         }
         public virtual async Task<dynamic> GetModelAsync(string modelName, IKey<TKey> keyProvider, CancellationToken cancellationToken = default)
@@ -68,24 +66,23 @@ namespace ServiceCore.Services
             //check filter
             if (request == null)
             {
-                throw new ReadException($"List<{modelName}>", new ArgumentNullException(nameof(request), Constant.Errors.RequestFilterNull));
+                throw new ReadException(modelName, new ArgumentNullException(nameof(request), Constant.Errors.RequestFilterNull));
             }
 
             //get requested model type
             Type resultType = typeResolver.GetType(modelName);
             if (resultType == null)
             {
-                throw new ReadException($"List<{modelName}>", new ArgumentException(Constant.Errors.UnsupportedModel)); ;
+                throw new ReadException(modelName, new ArgumentException(Constant.Errors.UnsupportedModel)); ;
             }
 
             try
             {
-                //invoke  getasync with arguments
                 dynamic task = contextType.GetMethod(GET_ASYNC, new Type[] { typeof(HttpClient), typeof(Uri), typeof(CancellationToken), typeof(string) })
                                           .MakeGenericMethod(typeof(List<>).MakeGenericType(resultType))
-                                          .Invoke(HttpClient, new object[] { HttpClient, new Uri($"{Controller}/list/{modelName}?{request.ToQuery()}", UriKind.Relative), cancellationToken, Constant.MediaType.Application.Json});
+                                          .Invoke(httpService, new object[] { HttpClient, new Uri($"{Controller}/lists/{modelName}?{request.ToQuery()}", UriKind.Relative), cancellationToken, Constant.MediaType.Application.Json });
 
-                return await task.ConfigureAwait(false); ;
+                return await task.ConfigureAwait(false);
             }
             catch (Exception exception)
             {

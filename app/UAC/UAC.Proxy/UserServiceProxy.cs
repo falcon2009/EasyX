@@ -8,7 +8,9 @@ namespace UAC.Proxy
 {
     public class UserServiceProxy : ModelServiceHttpGeneric<UserKey>
     {
-        public UserServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver, string controller) : base(httpService, httpClient, typeResolver, controller)
+        public UserServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver) : base(httpService, httpClient, typeResolver)
         { }
+
+        protected override string Controller => "User";
     }
 }

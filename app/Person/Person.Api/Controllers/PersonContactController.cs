@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Person.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PersonContactController : CrudControllerBase<PersonContactModel, PersonContactKey>
     {

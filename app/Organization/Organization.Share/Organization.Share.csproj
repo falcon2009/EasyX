@@ -7,8 +7,19 @@
     <StartupObject />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Project\EasyX\app\Organization\Organization.Share\Organization.Share.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\library\EasyX.Data.Api\EasyX.Data.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Organization.Share.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

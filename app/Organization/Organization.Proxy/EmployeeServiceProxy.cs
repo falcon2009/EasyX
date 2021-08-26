@@ -8,7 +8,9 @@ namespace Person.Proxy
 {
     public class EmployeeServiceProxy : ModelServiceHttpGeneric<EmployeeKey>
     {
-        public EmployeeServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver, string controller) : base(httpService, httpClient, typeResolver, controller)
+        public EmployeeServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver) : base(httpService, httpClient, typeResolver)
         { }
+
+        protected override string Controller => "Employee";
     }
 }

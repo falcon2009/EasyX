@@ -1,9 +1,9 @@
-﻿using EasyX.Http;
-using EasyX.Infra;
+﻿using EasyX.Infra;
 using EasyX.Infra.Exception;
 using EasyX.Infra.Extension;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -14,7 +14,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace System.Service.Http
+namespace EasyX.Http
 {
     public class StandardHttpClient : IHttpService
     {

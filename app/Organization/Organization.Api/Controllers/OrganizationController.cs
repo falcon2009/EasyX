@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Organization.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class OrganizationController : CrudControllerBase<OrganizationModel, OrganizationKey>
     {

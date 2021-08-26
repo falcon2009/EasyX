@@ -8,8 +8,10 @@ namespace UAC.Proxy
 {
     public class RoleServiceProxy : ModelServiceHttpGeneric<RoleKey>
     {
-        public RoleServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver, string controller) : base(httpService, httpClient, typeResolver, controller)
+        public RoleServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver) : base(httpService, httpClient, typeResolver)
         {
         }
+
+        protected override string Controller => "Role";
     }
 }

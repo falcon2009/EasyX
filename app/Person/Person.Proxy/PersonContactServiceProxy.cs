@@ -8,7 +8,9 @@ namespace Person.Proxy
 {
     public class PersonContactServiceProxy : ModelServiceHttpGeneric<PersonContactKey>
     {
-        public PersonContactServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver, string controller) : base(httpService, httpClient, typeResolver, controller)
+        public PersonContactServiceProxy(IHttpService httpService, HttpClient httpClient, ITypeResolver typeResolver) : base(httpService, httpClient, typeResolver)
         { }
+
+        protected override string Controller => "PersonContact";
     }
 }
