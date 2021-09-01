@@ -42,7 +42,7 @@ namespace EasyX.WebApi.Middleware
             }
             catch (StatusCodeException exception)
             {
-                SetContextResponseStatusCode(context, HttpStatusCode.Conflict);
+                SetContextResponseStatusCode(context, exception.StatusCode);
                 ErrorModel model = GetErrroModel(exception, context);
                 await WriteJsonExceptionAsync(context, model).ConfigureAwait(false);
             }

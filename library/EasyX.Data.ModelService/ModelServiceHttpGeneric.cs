@@ -40,26 +40,8 @@ namespace ServiceCore.Services
                 throw new ReadException(modelName, new ArgumentNullException(nameof(keyProvider), Constant.Errors.KeyNull));
             }
 
-            //get requested model type
-            Type resultType = typeResolver.GetType(modelName);
-            if (resultType == null)
-            {
-                throw new ReadException(modelName, new ArgumentException(Constant.Errors.UnsupportedModel));
-            }
-
-            try
-            {
-                //invoke  getasync with arguments
-                dynamic task = contextType.GetMethod(GET_ASYNC, new Type[] { typeof(HttpClient), typeof(Uri), typeof(CancellationToken), typeof(string) })
-                                          .MakeGenericMethod(resultType)
-                                          .Invoke(HttpClient, new object[] { HttpClient, new Uri($"{Controller}/{modelName}/{keyProvider.ToQuery()}", UriKind.Relative), cancellationToken, Constant.MediaType.Application.Json });
-                
-                return await task.ConfigureAwait(false);
-            }
-            catch (Exception exception)
-            {
-                throw new ReadException(modelName, exception);
-            }
+            return await GetAsync(modelName, $"{Controller}/{modelName}?{keyProvider.ToQuery()}", cancellationToken)
+                         .ConfigureAwait(false);
         }
         public virtual async Task<dynamic> GetModelListAsync(string modelName, IRequest request, CancellationToken cancellationToken = default)
         {
@@ -69,25 +51,8 @@ namespace ServiceCore.Services
                 throw new ReadException(modelName, new ArgumentNullException(nameof(request), Constant.Errors.RequestFilterNull));
             }
 
-            //get requested model type
-            Type resultType = typeResolver.GetType(modelName);
-            if (resultType == null)
-            {
-                throw new ReadException(modelName, new ArgumentException(Constant.Errors.UnsupportedModel)); ;
-            }
-
-            try
-            {
-                dynamic task = contextType.GetMethod(GET_ASYNC, new Type[] { typeof(HttpClient), typeof(Uri), typeof(CancellationToken), typeof(string) })
-                                          .MakeGenericMethod(typeof(List<>).MakeGenericType(resultType))
-                                          .Invoke(httpService, new object[] { HttpClient, new Uri($"{Controller}/lists/{modelName}?{request.ToQuery()}", UriKind.Relative), cancellationToken, Constant.MediaType.Application.Json });
-
-                return await task.ConfigureAwait(false);
-            }
-            catch (Exception exception)
-            {
-                throw new ReadException(modelName, exception);
-            }
+            return await GetAsync(modelName, $"{Controller}/list/{modelName}?{request.ToQuery()}", cancellationToken)
+                         .ConfigureAwait(false);
         }
         public virtual async Task<ITotalModel> GetTotalAsync(string modelName, IRequest request, CancellationToken cancellationToken = default)
         {
@@ -97,8 +62,19 @@ namespace ServiceCore.Services
                 throw new ReadException($"{nameof(TotalModel)} for {modelName}", new ArgumentNullException(nameof(request), Constant.Errors.RequestFilterNull));
             }
 
-            return await httpService.GetAsync<TotalModel>(HttpClient, new Uri($"{Controller}/total/{modelName}?{request.ToQuery()}", UriKind.Relative), cancellationToken)
-                                    .ConfigureAwait(false);
+            try
+            {
+                return await httpService.GetAsync<TotalModel>(HttpClient, new Uri($"{Controller}/total/{modelName}?{request.ToQuery()}", UriKind.Relative), cancellationToken)
+                                        .ConfigureAwait(false);
+            }
+            catch (StatusCodeException exception)
+            {
+                throw new ReadException(modelName, exception);
+            }
+            catch (Exception exception)
+            {
+                throw new ReadException(modelName, exception);
+            }
         }
         public virtual async Task<TModel> InsertModelAsync<TModel>(TModel model, CancellationToken cancellationToken = default) where TModel : class, IKey<TKey>
         {
@@ -108,8 +84,19 @@ namespace ServiceCore.Services
                 throw new CreateException(nameof(TModel), new ArgumentNullException(nameof(model), Constant.Errors.ModelNull));
             }
 
-            return await httpService.PostAsync<TModel, TModel>(HttpClient, new Uri(Controller, UriKind.Relative), model, cancellationToken)
-                                    .ConfigureAwait(false);
+            try
+            {
+                return await httpService.PostAsync<TModel, TModel>(HttpClient, new Uri(Controller, UriKind.Relative), model, cancellationToken)
+                                        .ConfigureAwait(false);
+            }
+            catch (StatusCodeException exception)
+            {
+                throw new CreateException(nameof(TModel), exception);
+            }
+            catch (Exception exception)
+            {
+                throw new CreateException(nameof(TModel), exception);
+            }
         }
         public virtual async Task<TModel> UpdateModelAsync<TModel>(TModel model, CancellationToken cancellationToken = default) where TModel : class, IKey<TKey>
         {
@@ -127,12 +114,12 @@ namespace ServiceCore.Services
             //check keyProvider
             if (keyProvider == null)
             {
-                throw new DeleteException(Controller, new ArgumentNullException(nameof(keyProvider), Constant.Errors.KeyNull)); ;
+                throw new DeleteException(Controller, new ArgumentNullException(nameof(keyProvider), Constant.Errors.KeyNull));
             }
             //convert key to query string
             try
             {
-                return await httpService.DeleteAsync<DeleteModel>(HttpClient, new Uri($"{Controller}/{keyProvider.ToQuery()}", UriKind.Relative), cancellationToken)
+                return await httpService.DeleteAsync<DeleteModel>(HttpClient, new Uri($"{Controller}?{keyProvider.ToQuery()}", UriKind.Relative), cancellationToken)
                                         .ConfigureAwait(false);
             }
             catch (Exception exception)
@@ -140,9 +127,45 @@ namespace ServiceCore.Services
                 throw new DeleteException(Controller, exception);
             }
         }
-        public Task<dynamic> GetFirstFromModelListAsync(string modelName, IRequest request, CancellationToken cancellationToken = default)
+        public virtual async Task<dynamic> GetFirstFromModelListAsync(string modelName, IRequest request, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            //check filter
+            if (request == null)
+            {
+                throw new ReadException(modelName, new ArgumentNullException(nameof(request), Constant.Errors.RequestFilterNull));
+            }
+
+            return await GetAsync(modelName, $"{Controller}/first/{modelName}?{request.ToQuery()}", cancellationToken)
+                         .ConfigureAwait(false);
         }
+
+        #region protected
+        protected virtual async Task<dynamic> GetAsync(string modelName, string path, CancellationToken cancellationToken = default)
+        {
+             //get requested model type
+            Type resultType = typeResolver.GetType(modelName);
+            if (resultType == null)
+            {
+                throw new ReadException(modelName, new ArgumentException(Constant.Errors.UnsupportedModel)); ;
+            }
+
+            try
+            {
+                dynamic task = contextType.GetMethod(GET_ASYNC, new Type[] { typeof(HttpClient), typeof(Uri), typeof(CancellationToken), typeof(string) })
+                                          .MakeGenericMethod(typeof(List<>).MakeGenericType(resultType))
+                                          .Invoke(httpService, new object[] { HttpClient, new Uri(path, UriKind.Relative), cancellationToken, Constant.MediaType.Application.Json });
+
+                return await task.ConfigureAwait(false);
+            }
+            catch (StatusCodeException exception)
+            {
+                throw new ReadException(modelName, exception);
+            }
+            catch (Exception exception)
+            {
+                throw new ReadException(modelName, exception);
+            }
+        }
+        #endregion
     }
 }

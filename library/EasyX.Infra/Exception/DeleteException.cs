@@ -12,9 +12,8 @@ namespace EasyX.Infra.Exception
         {
             StatusCode = HttpStatusCode.Conflict;
         }
-        public DeleteException(string modelName) : base($"Cannot delete instace of {modelName}.")
+        public DeleteException(string modelName) : base(HttpStatusCode.Conflict, $"Cannot delete instace of {modelName}.")
         {
-            StatusCode = HttpStatusCode.Conflict;
         }
         public DeleteException(string modelName, System.Exception? innerException) : base($"Cannot delete instace of {modelName}.", innerException)
         {

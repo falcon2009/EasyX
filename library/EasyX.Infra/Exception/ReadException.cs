@@ -12,13 +12,11 @@ namespace EasyX.Infra.Exception
         {
             StatusCode = HttpStatusCode.BadRequest;
         }
-        public ReadException(string modelName) : base($"Cannot get {modelName}.")
+        public ReadException(string modelName, System.Exception? innerException) : base(HttpStatusCode.BadRequest, $"Cannot get {modelName}.", innerException)
         {
-            StatusCode = HttpStatusCode.BadRequest;
         }
-        public ReadException(string modelName, System.Exception? innerException) : base($"Cannot get {modelName}.", innerException)
+        public ReadException(string modelName, StatusCodeException innerException) : base(innerException.StatusCode, $"Cannot get {modelName}.", innerException)
         {
-            StatusCode = HttpStatusCode.BadRequest;
         }
         protected ReadException(SerializationInfo info, StreamingContext context) : base(info, context)
         {

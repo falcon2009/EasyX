@@ -223,16 +223,16 @@ namespace EasyX.Http
             {
                 return;
             }
-            JsonSerializerOptions serializerOption = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
             string result = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (string.IsNullOrEmpty(result))
             {
-                throw new StatusCodeException(responseMessage.StatusCode, result);
+                throw new StatusCodeException(responseMessage.StatusCode, $"{responseMessage.ReasonPhrase}- Method: {responseMessage.RequestMessage.Method}, Path: {responseMessage.RequestMessage.RequestUri}");
             }
 
             try
             {
-                ErrorModel errorModel = JsonSerializer.Deserialize<ErrorModel>(result, serializerOption);
+                ErrorModel errorModel = JsonSerializer.Deserialize<ErrorModel>(result, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 if (!string.IsNullOrEmpty(errorModel.Message))
                 {
                     throw new StatusCodeException(responseMessage.StatusCode, errorModel.Message);

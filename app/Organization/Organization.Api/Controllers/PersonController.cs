@@ -17,10 +17,10 @@ namespace Organization.Api.Controllers
         public EmployeeController(IModelService<EmployeeKey> service) : base(service)
         { }
 
-        [HttpGet("{organizationId}/{personId}/{modelName}")]
+        [HttpGet("{modelName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetModelAsync(Guid organizationId, Guid personId, string modelName)
+        public async Task<IActionResult> GetModelAsync([FromQuery] Guid organizationId, [FromQuery] Guid personId, [FromRoute] string modelName)
         {
             EmployeeKey key = new() { OrganizationId = organizationId, PersonId = personId };
             KeyProvider<EmployeeKey> keyProvider = new()

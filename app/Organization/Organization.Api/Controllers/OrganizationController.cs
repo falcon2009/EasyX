@@ -17,10 +17,10 @@ namespace Organization.Api.Controllers
         public OrganizationController(IModelService<OrganizationKey> service) : base(service)
         { }
 
-        [HttpGet("{id}/{modelName}")]
+        [HttpGet("{modelName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetModelAsync(Guid id, string modelName)
+        public async Task<IActionResult> GetModelAsync([FromQuery] Guid id, [FromRoute] string modelName)
         {
             OrganizationKey key = new() { Id = id };
             KeyProvider<OrganizationKey> keyProvider = new()

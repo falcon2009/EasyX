@@ -68,6 +68,7 @@ namespace OrganizatonOrc.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(SetSwaggerUI);
             }
+            app.UseMiddleware<TransactionIdMiddleware>();
             app.UseMiddleware<JsonExceptionMiddleware>();
             app.UseRouting();
 

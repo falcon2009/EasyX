@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -37,6 +38,16 @@ namespace EasyX.Infra.Extension
             }
 
             return JsonSerializer.Serialize(item, option);
+        }
+
+        public static Guid? ToGuidOrNull(this string str)
+        {
+            return Guid.TryParse(str, out var result) ? result : null;
+        }
+
+        public static Guid ToGuidOrDefault(this string str)
+        {
+            return Guid.TryParse(str, out var result) ? result : Guid.Empty;
         }
     }
 }

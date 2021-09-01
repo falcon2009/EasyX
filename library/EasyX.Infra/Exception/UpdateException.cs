@@ -12,13 +12,11 @@ namespace EasyX.Infra.Exception
         {
             StatusCode = HttpStatusCode.Conflict;
         }
-        public UpdateException(string modelName) : base($"Cannot update instace of {modelName}.")
+        public UpdateException(string modelName) : base(HttpStatusCode.Conflict, $"Cannot update instace of {modelName}.")
         {
-            StatusCode = HttpStatusCode.Conflict;
         }
-        public UpdateException(string modelName, System.Exception? innerException) : base($"Cannot update instace of {modelName}.", innerException)
+        public UpdateException(string modelName, System.Exception? innerException) : base(HttpStatusCode.Conflict, $"Cannot update instace of {modelName}.", innerException)
         {
-            StatusCode = HttpStatusCode.Conflict;
         }
         protected UpdateException(SerializationInfo info, StreamingContext context) : base(info, context)
         {

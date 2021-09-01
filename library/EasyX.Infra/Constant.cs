@@ -33,8 +33,14 @@
         {
             public const int OK = 200;
             public const int BadRequest = 400;
+            public const int NoFOund = 404;
             public const int Conflict = 409;
             public const int InternalServerError = 500;
+        }
+
+        public static class Headers
+        {
+            public const string Transaction = "X-TransactionId";
         }
     }
 }
