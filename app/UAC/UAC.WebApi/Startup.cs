@@ -8,22 +8,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Organization.Share.Key;
-using Organization.Storage;
-using Organization.Storage.Mapping;
-using Organization.Storage.Repo;
-using Organization.Storage.Service;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
-using Entity = Organization.Storage.Entity;
+using UAC.Share.Key;
+using UAC.Storage;
+using UAC.Storage.Entity;
+using UAC.Storage.Mapping;
+using UAC.Storage.Repo;
+using UAC.Storage.Service;
 
-
-namespace Organization.Api
+namespace UAC.Api
 {
     public class Startup
     {
@@ -38,50 +36,40 @@ namespace Organization.Api
         public void ConfigureServices(IServiceCollection services)
         {
             //add mapper
-            MapperConfiguration mapperConfig = new (config =>
+            MapperConfiguration mapperConfig = new MapperConfiguration(config =>
             {
-                config.AddProfile(new OrganizationMapping());
-                config.AddProfile(new EmployeeMapping());
-                config.AddProfile(new PositionMapping());
+                config.AddProfile(new UserMapping());
+                config.AddProfile(new RoleMapping());
+                config.AddProfile(new UserRoleMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             //add db context
             services.AddDbContext<ApiDbContext>(SetDBContext);
-
             services.AddControllers();
-
             services.AddSwaggerGen(SetSwagger);
 
             #region service
-            services.AddTransient<IModelService<OrganizationKey>, OrganizationService>();
-            services.AddTransient<IModelService<EmployeeKey>, EmployeeService>();
-            services.AddTransient<IModelService<PositionKey>, PositionService>();
+            services.AddTransient<IModelService<UserKey>, UserService>();
+            services.AddTransient<IModelService<RoleKey>, RoleService>();
             #endregion
 
             #region repo
-            services.AddScoped<IQueryableDataProvider<Entity.Organization, OrganizationKey>, OrganizationRepository>();
-            services.AddScoped<IDataManager<Entity.Organization, OrganizationKey>, OrganizationRepository>();
-            services.AddScoped<IQueryableDataProvider<Entity.Employee, EmployeeKey>, EmployeeRepository>();
-            services.AddScoped<IDataManager<Entity.Employee, EmployeeKey>, EmployeeRepository>();
-            services.AddScoped<IQueryableDataProvider<Entity.Position, PositionKey>, PositionRepository>();
-            services.AddScoped<IDataManager<Entity.Position, PositionKey>, PositionRepository>();
+            services.AddScoped<IQueryableDataProvider<User, UserKey>, UserRepository>();
+            services.AddScoped<IDataManager<User, UserKey>, UserRepository>();
+            services.AddScoped<IQueryableDataProvider<Role, RoleKey>, RoleRepository>();
+            services.AddScoped<IDataManager<Role, RoleKey>, RoleRepository>();
             #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(SetSwaggerUI);
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI(SetSwaggerUI);
             app.UseMiddleware<JsonExceptionMiddleware>();
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -101,7 +89,7 @@ namespace Organization.Api
                 throw new ArgumentNullException(nameof(builder), Constant.Errors.BuilderNull);
             }
 
-            builder.UseSqlServer(Configuration.GetConnectionString("ApiDbContext"), option => option.MigrationsAssembly("Organization.Api"));
+            builder.UseSqlServer(Configuration.GetConnectionString("ApiDbContext"), option => option.MigrationsAssembly("UAC.WebApi"));
         }
         private static void SetSwagger(SwaggerGenOptions option)
         {
@@ -116,8 +104,8 @@ namespace Organization.Api
 
             option.SwaggerDoc("v1", new OpenApiInfo { Title = title, Version = version });
 
-            string webApiDocPath = Path.Combine(AppContext.BaseDirectory, "Organization.Api.xml");
-            string shareDocPath = Path.Combine(AppContext.BaseDirectory, "Organization.Share.xml");
+            string webApiDocPath = Path.Combine(AppContext.BaseDirectory, "UAC.Api.xml");
+            string shareDocPath = Path.Combine(AppContext.BaseDirectory, "UAC.Share.xml");
             string systemDataCoreDocPath = Path.Combine(AppContext.BaseDirectory, "EasyX.Data.Core.xml");
             if (File.Exists(webApiDocPath))
             {
@@ -139,7 +127,7 @@ namespace Organization.Api
                 throw new ArgumentNullException(nameof(option), Constant.Errors.OptionNull);
             }
 
-            option.SwaggerEndpoint("/swagger/v1/swagger.json", "Person.Api");
+            option.SwaggerEndpoint("/swagger/v1/swagger.json", "UAC.Api");
         }
         #endregion
     }

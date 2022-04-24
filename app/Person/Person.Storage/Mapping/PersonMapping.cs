@@ -3,7 +3,7 @@ using EasyX.Data.Core.Tool;
 using Person.Share.Key;
 using Person.Share.Model.Person;
 using Person.Share.Model.PersonContact;
-using Entity = Person.Storage.Entity;
+using Person.Storage.EntityModel;
 
 namespace Person.Storage.Mapping
 {
@@ -16,7 +16,7 @@ namespace Person.Storage.Mapping
                 .ForMember(entity => entity.PersonContactList, option => option.Ignore())
                 .AfterMap<MapPersonFromPersonModel>();
 
-            CreateMap<Entity.PersonContact, PersonContactModel>();
+            CreateMap<PersonLookup, PersonLookupModel>();
         }
 
         private class MapPersonFromPersonModel : IMappingAction<PersonModel, Entity.Person>

@@ -6,6 +6,9 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="4.1.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EasyX.Crud.Api\EasyX.Crud.Api.csproj" />

@@ -13,7 +13,7 @@ namespace OrganizationOrc.Share
                 return new Type[] 
                 { 
                     typeof(EmployeeOrcModel), 
-                    typeof(OrganizatonWithEmployeeOrcModel)
+                    typeof(OrganizationWithEmployeeOrcModel)
                 };
             }
         }

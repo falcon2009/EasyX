@@ -18,9 +18,20 @@ namespace Organization.Storage.Repo
         {
             static IQueryable<OrganizationLookup> selectOrganizationLookup(IQueryable<Entity.Organization> query) => 
                 query.Select(entity => new OrganizationLookup { Id = entity.Id, Titlte = entity.Titlte });
+            static IQueryable<OrganizationWithEmployee> selectOrganizationWithEmployee(IQueryable<Entity.Organization> query) =>
+                query.Select(entity => new OrganizationWithEmployee { 
+                    Id = entity.Id,
+                    IdentificationNumber = entity.IdentificationNumber,
+                    Titlte = entity.Titlte,
+                    CreatedById = entity.CreatedById,
+                    CreatedByName = entity.CreatedByName,
+                    CreatedOn = entity.CreatedOn,
+                    EmployeeList = entity.EmployeeList
+                });
 
             AddQuery(nameof(Entity.Organization), DbSet);
-            AddQuery(nameof(OrganizationWithEmployee), DbSet.Include(entity=>entity.EmployeeList).ThenInclude(entity=>entity.Position));
+            //AddQuery(nameof(OrganizationWithEmployee), DbSet.Include(entity=>entity.EmployeeList).ThenInclude(entity=>entity.Position));
+            AddQueryForModel(selectOrganizationWithEmployee, DbSet.Include(entity => entity.EmployeeList).ThenInclude(entity => entity.Position));
             AddQueryForModel(selectOrganizationLookup, DbSet);
         }
     }

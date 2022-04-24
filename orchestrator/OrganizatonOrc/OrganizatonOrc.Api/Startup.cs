@@ -1,3 +1,4 @@
+using AutoMapper;
 using EasyX.Crud.Api.Model;
 using EasyX.Http;
 using EasyX.Infra;
@@ -16,6 +17,7 @@ using Organization.Share;
 using Organization.Share.Key;
 using OrganizationOrc.Share;
 using OrganizatonOrc.Api.Service;
+using OrganizatonOrc.WebApi.Mapping;
 using Person.Proxy;
 using Person.Share;
 using Person.Share.Key;
@@ -41,7 +43,14 @@ namespace OrganizatonOrc.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //add mapper
+            MapperConfiguration mapperConfig = new MapperConfiguration(config =>
+            {
+                config.AddProfile(new OrganizationOrcMapping());
+                config.AddProfile(new EmployeeOrcMapping());
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddControllers();
             services.AddSwaggerGen(SetSwagger);
 

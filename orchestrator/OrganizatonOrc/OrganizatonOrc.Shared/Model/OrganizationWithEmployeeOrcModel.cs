@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OrganizatonOrc.Shared.Model
 {
-    public class OrganizatonWithEmployeeOrcModel
+    public class OrganizationWithEmployeeOrcModel
     {
         public Guid? Id { get; set; }
         public string Titlte { get; set; }

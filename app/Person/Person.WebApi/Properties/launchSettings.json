@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Person.Api": {
+    "Person.WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",

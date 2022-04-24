@@ -51,7 +51,7 @@ namespace ServiceCore.Services
                 throw new ReadException(modelName, new ArgumentNullException(nameof(request), Constant.Errors.RequestFilterNull));
             }
 
-            return await GetAsync(modelName, $"{Controller}/list/{modelName}?{request.ToQuery()}", cancellationToken)
+            return await GetListAsync(modelName, $"{Controller}/list/{modelName}?{request.ToQuery()}", cancellationToken)
                          .ConfigureAwait(false);
         }
         public virtual async Task<ITotalModel> GetTotalAsync(string modelName, IRequest request, CancellationToken cancellationToken = default)
@@ -143,6 +143,32 @@ namespace ServiceCore.Services
         protected virtual async Task<dynamic> GetAsync(string modelName, string path, CancellationToken cancellationToken = default)
         {
              //get requested model type
+            Type resultType = typeResolver.GetType(modelName);
+            if (resultType == null)
+            {
+                throw new ReadException(modelName, new ArgumentException(Constant.Errors.UnsupportedModel)); ;
+            }
+
+            try
+            {
+                dynamic task = contextType.GetMethod(GET_ASYNC, new Type[] { typeof(HttpClient), typeof(Uri), typeof(CancellationToken), typeof(string) })
+                                          .MakeGenericMethod(resultType)
+                                          .Invoke(httpService, new object[] { HttpClient, new Uri(path, UriKind.Relative), cancellationToken, Constant.MediaType.Application.Json });
+
+                return await task.ConfigureAwait(false);
+            }
+            catch (StatusCodeException exception)
+            {
+                throw new ReadException(modelName, exception);
+            }
+            catch (Exception exception)
+            {
+                throw new ReadException(modelName, exception);
+            }
+        }
+        protected virtual async Task<dynamic> GetListAsync(string modelName, string path, CancellationToken cancellationToken = default)
+        {
+            //get requested model type
             Type resultType = typeResolver.GetType(modelName);
             if (resultType == null)
             {

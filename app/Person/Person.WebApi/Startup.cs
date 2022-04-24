@@ -9,19 +9,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Person.Share.Key;
+using Person.Storage;
+using Person.Storage.Mapping;
+using Person.Storage.Repo;
+using Person.Storage.Service;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
-using UAC.Share.Key;
-using UAC.Storage;
-using UAC.Storage.Entity;
-using UAC.Storage.Mapping;
-using UAC.Storage.Repo;
-using UAC.Storage.Service;
+using Entity = Person.Storage.Entity;
 
-namespace UAC.Api
+namespace Person.Api
 {
     public class Startup
     {
@@ -36,30 +36,31 @@ namespace UAC.Api
         public void ConfigureServices(IServiceCollection services)
         {
             //add mapper
-            MapperConfiguration mapperConfig = new MapperConfiguration(config =>
+            MapperConfiguration mapperConfig = new (config =>
             {
-                config.AddProfile(new UserMapping());
-                config.AddProfile(new RoleMapping());
-                config.AddProfile(new UserRoleMapping());
+                config.AddProfile(new PersonMapping());
+                config.AddProfile(new PersonContactMapping());
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             //add db context
             services.AddDbContext<ApiDbContext>(SetDBContext);
+
             services.AddControllers();
+
             services.AddSwaggerGen(SetSwagger);
 
             #region service
-            services.AddTransient<IModelService<UserKey>, UserService>();
-            services.AddTransient<IModelService<RoleKey>, RoleService>();
+            services.AddTransient<IModelService<PersonKey>, PersonService>();
+            services.AddTransient<IModelService<PersonContactKey>, PersonContactService>();
             #endregion
 
             #region repo
-            services.AddScoped<IQueryableDataProvider<User, UserKey>, UserRepository>();
-            services.AddScoped<IDataManager<User, UserKey>, UserRepository>();
-            services.AddScoped<IQueryableDataProvider<Role, RoleKey>, RoleRepository>();
-            services.AddScoped<IDataManager<Role, RoleKey>, RoleRepository>();
+            services.AddScoped<IQueryableDataProvider<Entity.Person, PersonKey>, PersonRepository>();
+            services.AddScoped<IDataManager<Entity.Person, PersonKey>, PersonRepository>();
+            services.AddScoped<IQueryableDataProvider<Entity.PersonContact, PersonContactKey>, PersonContactRepository>();
+            services.AddScoped<IDataManager<Entity.PersonContact, PersonContactKey>, PersonContactRepository>();
             #endregion
         }
 
@@ -70,6 +71,8 @@ namespace UAC.Api
             app.UseSwaggerUI(SetSwaggerUI);
             app.UseMiddleware<JsonExceptionMiddleware>();
             app.UseRouting();
+
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -89,7 +92,7 @@ namespace UAC.Api
                 throw new ArgumentNullException(nameof(builder), Constant.Errors.BuilderNull);
             }
 
-            builder.UseSqlServer(Configuration.GetConnectionString("ApiDbContext"), option => option.MigrationsAssembly("UAC.Api"));
+            builder.UseSqlServer(Configuration.GetConnectionString("ApiDbContext"), option => option.MigrationsAssembly("Person.WebApi"));
         }
         private static void SetSwagger(SwaggerGenOptions option)
         {
@@ -104,8 +107,8 @@ namespace UAC.Api
 
             option.SwaggerDoc("v1", new OpenApiInfo { Title = title, Version = version });
 
-            string webApiDocPath = Path.Combine(AppContext.BaseDirectory, "UAC.Api.xml");
-            string shareDocPath = Path.Combine(AppContext.BaseDirectory, "UAC.Share.xml");
+            string webApiDocPath = Path.Combine(AppContext.BaseDirectory, "Person.WebApi.xml");
+            string shareDocPath = Path.Combine(AppContext.BaseDirectory, "Person.Share.xml");
             string systemDataCoreDocPath = Path.Combine(AppContext.BaseDirectory, "EasyX.Data.Core.xml");
             if (File.Exists(webApiDocPath))
             {
@@ -127,8 +130,9 @@ namespace UAC.Api
                 throw new ArgumentNullException(nameof(option), Constant.Errors.OptionNull);
             }
 
-            option.SwaggerEndpoint("/swagger/v1/swagger.json", "UAC.Api");
+            option.SwaggerEndpoint("/swagger/v1/swagger.json", "Person.Api");
         }
         #endregion
+
     }
 }

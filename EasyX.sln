@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UAC.Storage", "app\UAC\UAC.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UAC.Share", "app\UAC\UAC.Share\UAC.Share.csproj", "{82D9B1D5-5091-4C53-A6F2-E5651F813745}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UAC.Api", "app\UAC\UAC.Api\UAC.Api.csproj", "{8DB5C0C7-2925-49BF-A64D-07ABB80A39C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UAC.WebApi", "app\UAC\UAC.WebApi\UAC.WebApi.csproj", "{8DB5C0C7-2925-49BF-A64D-07ABB80A39C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyX.WebApi", "library\EasyX.WebApi\EasyX.WebApi.csproj", "{9B2072C9-F068-4957-A35A-0C5DF4069C33}"
 EndProject
@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Share", "app\Person\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Storage", "app\Person\Person.Storage\Person.Storage.csproj", "{F5A6B8E9-4217-4FFC-B1E6-CF4605A55502}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Api", "app\Person\Person.Api\Person.Api.csproj", "{EC173C7D-CFD0-44BA-BCAB-DC5BA198F44E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.WebApi", "app\Person\Person.WebApi\Person.WebApi.csproj", "{EC173C7D-CFD0-44BA-BCAB-DC5BA198F44E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_enviroment", "_enviroment", "{63D69394-650C-4C85-88E0-E5CD72B06343}"
 	ProjectSection(SolutionItems) = preProject
@@ -58,13 +58,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.Proxy", "app\O
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestrator", "Orchestrator", "{80CE48BC-418B-4316-A349-7C6FA6974CBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.Api", "app\Organization\Organization.Api\Organization.Api.csproj", "{F8143131-0456-40EA-A9FA-C65AF91E63DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.WebApi", "app\Organization\Organization.WebApi\Organization.WebApi.csproj", "{F8143131-0456-40EA-A9FA-C65AF91E63DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrganizationOrc", "OrganizationOrc", "{8649441F-9E3C-450E-B4C8-D88DCFA64762}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrganizatonOrc.Shared", "orchestrator\OrganizatonOrc\OrganizatonOrc.Shared\OrganizatonOrc.Shared.csproj", "{78BC0ACE-73CD-4A0C-BDC6-539A2751C5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizatonOrc.Api", "orchestrator\OrganizatonOrc\OrganizatonOrc.Api\OrganizatonOrc.Api.csproj", "{A750C02D-82E9-47B6-8600-3974B9815E72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrganizatonOrc.WebApi", "orchestrator\OrganizatonOrc\OrganizatonOrc.Api\OrganizatonOrc.WebApi.csproj", "{A750C02D-82E9-47B6-8600-3974B9815E72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
