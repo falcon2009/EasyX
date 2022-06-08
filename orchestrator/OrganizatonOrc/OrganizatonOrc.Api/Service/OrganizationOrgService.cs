@@ -42,12 +42,6 @@ namespace OrganizatonOrc.Api.Service
             this.mapper = mapper;
         }
 
-        private void aaa()
-        {
-            List<OrganizationLookupModel> modelList = new List<OrganizationLookupModel>();
-            modelList.Where(item => item != null && !string.IsNullOrEmpty(item.Titlte)).ToList();
-        }
-
         #region protected
         protected override void ConfigureService()
         {
